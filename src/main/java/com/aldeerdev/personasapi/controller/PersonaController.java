@@ -2,6 +2,7 @@ package com.aldeerdev.personasapi.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,12 +34,14 @@ public class PersonaController {
 	}
 	
 	@GetMapping("/personas/{id}")
-	public Persona obtenerPersona(@PathVariable Long id) {
-		return personaService.obtenerPersonaPorId(id);
+	public ResponseEntity<Persona> obtenerPersona(@PathVariable Long id) {
+		Persona persona = personaService.obtenerPersonaPorId(id);
+		return ResponseEntity.ok(persona);
 	}
 	
 	@PostMapping("/personas")
-	public Persona crearPersona(@Valid @RequestBody Persona persona) {
-		return personaService.crearPersona(persona);
+	public ResponseEntity<Persona> crearPersona(@Valid @RequestBody Persona persona) {
+		Persona creada = personaService.crearPersona(persona);
+		return ResponseEntity.status(201).body(creada);
 	}
 }
