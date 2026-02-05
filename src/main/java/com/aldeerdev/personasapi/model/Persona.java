@@ -26,9 +26,8 @@ public class Persona {
 		super();
 	}
 
-	public Persona(Long id, String nombre, int edad) {
+	public Persona(String nombre, int edad) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.edad = edad;
 	}
