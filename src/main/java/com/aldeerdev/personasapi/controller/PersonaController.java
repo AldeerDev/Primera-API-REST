@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aldeerdev.personasapi.model.Persona;
 import com.aldeerdev.personasapi.service.PersonaService;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class PersonaController {
 	
@@ -36,7 +38,7 @@ public class PersonaController {
 	}
 	
 	@PostMapping("/personas")
-	public Persona crearPersona(@RequestBody Persona persona) {
+	public Persona crearPersona(@Valid @RequestBody Persona persona) {
 		return personaService.crearPersona(persona);
 	}
 }

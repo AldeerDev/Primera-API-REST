@@ -1,9 +1,16 @@
 package com.aldeerdev.personasapi.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+
 public class Persona {
 
 	private Long id;
+	
+	@NotBlank
 	private String nombre;
+	
+	@Min(0)
 	private int edad;
 
 	public Persona(Long id, String nombre, int edad) {
