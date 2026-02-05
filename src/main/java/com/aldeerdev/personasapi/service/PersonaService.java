@@ -41,4 +41,9 @@ public class PersonaService {
 		persona.setEdad(personaActualizada.getEdad());
 		return persona;
 	}
+	
+	public void eliminarPersona(Long id) {
+		Persona persona = obtenerPersonaPorId(id);
+		personas.remove(persona);
+	}
 }
