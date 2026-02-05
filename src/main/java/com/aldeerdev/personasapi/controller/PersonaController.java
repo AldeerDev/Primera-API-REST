@@ -6,9 +6,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aldeerdev.personasapi.model.Persona;
+import com.aldeerdev.personasapi.service.PersonaService;
 
 @RestController
 public class PersonaController {
+	
+	private final PersonaService personaService;
+	
+	public PersonaController(PersonaService personaService) {
+		this.personaService = personaService;
+	}
 	
 	@GetMapping("/saludo")
 	public String saludo() {
@@ -17,9 +24,6 @@ public class PersonaController {
 	
 	@GetMapping("/personas")
 	public List<Persona> obtenerPersona() {
-		return List.of(
-				new Persona(1L, "Juan", 30),
-				new Persona(2L, "Ana", 25),
-				new Persona(3L, "Pedro", 40));
+		return personaService.obtenerPersonas();
 	}
 }
