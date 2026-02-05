@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aldeerdev.personasapi.dto.PersonaRequestDTO;
+import com.aldeerdev.personasapi.dto.PersonaResponseDTO;
 import com.aldeerdev.personasapi.model.Persona;
 import com.aldeerdev.personasapi.service.PersonaService;
 
@@ -42,9 +44,13 @@ public class PersonaController {
 	}
 
 	@PostMapping("/personas")
-	public ResponseEntity<Persona> crearPersona(@Valid @RequestBody Persona persona) {
-		Persona creada = personaService.crearPersona(persona);
-		return ResponseEntity.status(201).body(creada);
+	public ResponseEntity<PersonaResponseDTO> crearPersona(@Valid @RequestBody PersonaRequestDTO dto) {
+		Persona persona = personaService.crearPersona(dto);
+		return ResponseEntity.status(201)
+				.body(new PersonaResponseDTO(
+						persona.getId(),
+						persona.getNombre(),
+						persona.getEdad()));
 	}
 
 	@PutMapping("/personas/{id}")

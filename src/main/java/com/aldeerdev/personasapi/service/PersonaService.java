@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.aldeerdev.personasapi.dto.PersonaRequestDTO;
 import com.aldeerdev.personasapi.exception.PersonaNotFoundException;
 import com.aldeerdev.personasapi.model.Persona;
 
@@ -12,7 +13,7 @@ import com.aldeerdev.personasapi.model.Persona;
 public class PersonaService {
 
 	private final List<Persona> personas = new ArrayList<Persona>();
-	
+
 	public PersonaService() {
 		personas.add(new Persona(1L, "Juan", 30));
 		personas.add(new Persona(2L, "Ana", 25));
@@ -22,26 +23,25 @@ public class PersonaService {
 	public List<Persona> obtenerPersonas() {
 		return personas;
 	}
-	
+
 	public Persona obtenerPersonaPorId(Long id) {
-		return personas.stream()
-				.filter(p -> p.getId().equals(id))
-				.findFirst()
+		return personas.stream().filter(p -> p.getId().equals(id)).findFirst()
 				.orElseThrow(() -> new PersonaNotFoundException(id));
 	}
-	
-	public Persona crearPersona(Persona persona) {
+
+	public Persona crearPersona(PersonaRequestDTO dto) {
+		Persona persona = new Persona(3L, dto.getNombre(), dto.getEdad());
 		personas.add(persona);
 		return persona;
 	}
-	
+
 	public Persona actualizarPersona(Long id, Persona personaActualizada) {
 		Persona persona = obtenerPersonaPorId(id);
 		persona.setNombre(personaActualizada.getNombre());
 		persona.setEdad(personaActualizada.getEdad());
 		return persona;
 	}
-	
+
 	public void eliminarPersona(Long id) {
 		Persona persona = obtenerPersonaPorId(id);
 		personas.remove(persona);
