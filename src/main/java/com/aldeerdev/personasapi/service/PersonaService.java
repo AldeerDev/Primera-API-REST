@@ -9,8 +9,17 @@ import com.aldeerdev.personasapi.model.Persona;
 @Service
 public class PersonaService {
 
+	private final List<Persona> personas = List.of(new Persona(1L, "Juan", 30), new Persona(2L, "Ana", 25),
+			new Persona(3L, "Pedro", 40));
+
 	public List<Persona> obtenerPersonas() {
-		return List.of(new Persona(1L, "Juan", 30), new Persona(2L, "Ana", 25),
-				new Persona(3L, "Pedro", 40));
+		return personas;
+	}
+	
+	public Persona obtenerPersonaPorId(Long id) {
+		return personas.stream()
+				.filter(p -> p.getId().equals(id))
+				.findFirst()
+				.orElse(null);
 	}
 }

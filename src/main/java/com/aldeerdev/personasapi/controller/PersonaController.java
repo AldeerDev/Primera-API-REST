@@ -3,6 +3,7 @@ package com.aldeerdev.personasapi.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aldeerdev.personasapi.model.Persona;
@@ -23,7 +24,12 @@ public class PersonaController {
 	}
 	
 	@GetMapping("/personas")
-	public List<Persona> obtenerPersona() {
+	public List<Persona> obtenerPersonas() {
 		return personaService.obtenerPersonas();
+	}
+	
+	@GetMapping("/personas/{id}")
+	public Persona obtenerPersona(@PathVariable Long id) {
+		return personaService.obtenerPersonaPorId(id);
 	}
 }
