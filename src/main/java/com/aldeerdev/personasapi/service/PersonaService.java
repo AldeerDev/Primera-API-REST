@@ -34,4 +34,11 @@ public class PersonaService {
 		personas.add(persona);
 		return persona;
 	}
+	
+	public Persona actualizarPersona(Long id, Persona personaActualizada) {
+		Persona persona = obtenerPersonaPorId(id);
+		persona.setNombre(personaActualizada.getNombre());
+		persona.setEdad(personaActualizada.getEdad());
+		return persona;
+	}
 }
