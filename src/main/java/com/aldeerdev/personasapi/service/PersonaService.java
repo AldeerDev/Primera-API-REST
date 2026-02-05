@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.aldeerdev.personasapi.exception.PersonaNotFoundException;
 import com.aldeerdev.personasapi.model.Persona;
 
 @Service
@@ -20,6 +21,6 @@ public class PersonaService {
 		return personas.stream()
 				.filter(p -> p.getId().equals(id))
 				.findFirst()
-				.orElse(null);
+				.orElseThrow(() -> new PersonaNotFoundException(id));
 	}
 }
