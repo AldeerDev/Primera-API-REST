@@ -1,7 +1,6 @@
 package com.aldeerdev.personasapi.controller;
 
-import java.util.List;
-
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +32,8 @@ public class PersonaController {
 	}
 
 	@GetMapping("/personas")
-	public List<Persona> obtenerPersonas() {
-		return personaService.obtenerPersonas();
+	public ResponseEntity<?> listar(Pageable pageable) {
+		return ResponseEntity.ok(personaService.obtenerPersonas(pageable));
 	}
 
 	@GetMapping("/personas/{id}")
@@ -47,10 +46,7 @@ public class PersonaController {
 	public ResponseEntity<PersonaResponseDTO> crearPersona(@Valid @RequestBody PersonaRequestDTO dto) {
 		Persona persona = personaService.crearPersona(dto);
 		return ResponseEntity.status(201)
-				.body(new PersonaResponseDTO(
-						persona.getId(),
-						persona.getNombre(),
-						persona.getEdad()));
+				.body(new PersonaResponseDTO(persona.getId(), persona.getNombre(), persona.getEdad()));
 	}
 
 	@PutMapping("/personas/{id}")
@@ -58,7 +54,7 @@ public class PersonaController {
 		Persona actualizada = personaService.actualizarPersona(id, persona);
 		return ResponseEntity.ok(actualizada);
 	}
-	
+
 	@DeleteMapping("/personas/{id}")
 	public ResponseEntity<Void> eliminarPersona(@PathVariable Long id) {
 		personaService.eliminarPersona(id);

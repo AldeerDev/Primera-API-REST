@@ -1,7 +1,7 @@
 package com.aldeerdev.personasapi.service;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.aldeerdev.personasapi.dto.PersonaRequestDTO;
@@ -18,8 +18,8 @@ public class PersonaService {
 		this.repository = repository;
 	}
 
-	public List<Persona> obtenerPersonas() {
-		return repository.findAll();
+	public Page<Persona> obtenerPersonas(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 	public Persona obtenerPersonaPorId(Long id) {
