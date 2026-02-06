@@ -1,5 +1,7 @@
 package com.aldeerdev.personasapi.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,8 @@ import com.aldeerdev.personasapi.repository.PersonaRepository;
 
 @Service
 public class PersonaService {
+	
+	private static final Logger log = LoggerFactory.getLogger(PersonaService.class);
 
 	private final PersonaRepository repository;
 
@@ -23,6 +27,7 @@ public class PersonaService {
 	}
 
 	public Persona obtenerPersonaPorId(Long id) {
+		log.info("Buscando Persona con id {}", id);
 		return repository.findById(id).orElseThrow(() -> new PersonaNotFoundException(id));
 	}
 
